@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1>Institute Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span>Total Trainees</span>
+        <strong>{{ stats.total_trainees }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Total Batches</span>
+        <strong>{{ stats.total_batches }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Companies Applied</span>
+        <strong>{{ stats.total_companies_applied }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Interviews</span>
+        <strong>{{ stats.total_interviews }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Selected</span>
+        <strong>{{ stats.total_selected_trainees }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Rejected</span>
+        <strong>{{ stats.total_rejected_trainees }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Pending Interviews</span>
+        <strong>{{ stats.pending_interviews }}</strong>
+    </div>
+</div>
+
+<div class="panel-grid">
+    {% if current_user.role == 'ceo' %}
+    <div class="panel-card">
+        <h2>Add Admin</h2>
+        <form method="POST" action="{{ url_for('admin.add_admin') }}">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role">
+                    <option value="admin">Teacher</option>
+                    <option value="admin">HR</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" name="password" value="Admin@123">
+            </div>
+            <button type="submit" class="primary-button">Create Admin</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="panel-card">
+        <h2>Add Trainee</h2>
+        <form method="POST" action="{{ url_for('admin.add_trainee') }}">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" name="phone">
+            </div>
+            <div class="form-group">
+                <label>Trainee ID</label>
+                <input type="text" name="trainee_id" required>
+            </div>
+            <div class="form-group">
+                <label>Course</label>
+                <input type="text" name="course" required>
+            </div>
+            <div class="form-group">
+                <label>Batch</label>
+                <select name="batch_id">
+                    <option value="">None</option>
+                    {% for batch in batches %}
+                        <option value="{{ batch.id }}">{{ batch.name }} - {{ batch.course_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" name="password" value="Trainee@123">
+            </div>
+            <button type="submit" class="primary-button">Add Trainee</button>
+        </form>
+    </div>
+</div>
+
+<div class="panel-card wide-card">
+    <h2>Batch-wise Trainee Count</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Batch</th>
+                <th>Course</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for batch in stats.batch_counts %}
+            <tr>
+                <td>{{ batch.name }}</td>
+                <td>{{ batch.course }}</td>
+                <td>{{ batch.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="panel-card wide-card">
+    <h2>Recent Trainees</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Batch</th>
+                <th>Profile</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in trainees %}
+            <tr>
+                <td>{{ item.user.full_name }}</td>
+                <td>{{ item.profile.course or 'N/A' }}</td>
+                <td>{{ item.profile.batch.name if item.profile and item.profile.batch else 'N/A' }}</td>
+                <td><a href="{{ url_for('admin.trainee_detail', user_id=item.user.id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

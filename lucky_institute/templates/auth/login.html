@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | Lucky Institute{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h1>Lucky Institute</h1>
+    <p class="subtitle">Login to continue</p>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="primary-button">Login</button>
+    </form>
+
+    <div class="demo-accounts">
+        <p><strong>Demo accounts</strong></p>
+        <ul>
+            <li>CEO: isha@luckyinstitute.com / Lucky@123</li>
+            <li>Teacher: teacher@luckyinstitute.com / Admin@123</li>
+            <li>HR: hr@luckyinstitute.com / Admin@123</li>
+            <li>Trainee: sara@luckyinstitute.com / Trainee@123</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

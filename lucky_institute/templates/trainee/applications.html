@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+<h1>Job Applications</h1>
+
+<form method="POST" class="panel-card">
+    <h2>Add Company Application</h2>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" name="company_name" required>
+        </div>
+        <div class="form-group">
+            <label>Job Role</label>
+            <input type="text" name="job_role" required>
+        </div>
+        <div class="form-group">
+            <label>Application Date</label>
+            <input type="date" name="application_date" required>
+        </div>
+        <div class="form-group">
+            <label>Application Status</label>
+            <select name="application_status">
+                <option value="Pending">Pending</option>
+                <option value="Applied">Applied</option>
+                <option value="Selected">Selected</option>
+                <option value="Rejected">Rejected</option>
+                <option value="On Hold">On Hold</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>HR Name</label>
+            <input type="text" name="hr_name">
+        </div>
+        <div class="form-group">
+            <label>HR Phone</label>
+            <input type="text" name="hr_phone">
+        </div>
+        <div class="form-group">
+            <label>HR Email</label>
+            <input type="email" name="hr_email">
+        </div>
+        <div class="form-group wide">
+            <label>Notes</label>
+            <textarea name="notes"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="primary-button">Save Application</button>
+</form>
+
+<div class="panel-card wide-card">
+    <h2>Application History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>HR</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr>
+                <td>{{ app.company_name }}</td>
+                <td>{{ app.job_role }}</td>
+                <td>{{ app.application_date }}</td>
+                <td>{{ app.application_status }}</td>
+                <td>{{ app.hr_name or 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

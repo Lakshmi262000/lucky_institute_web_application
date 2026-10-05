@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h1>My Profile</h1>
+
+<form method="POST" class="profile-form">
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="full_name" value="{{ current_user.full_name }}">
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" name="phone" value="{{ current_user.phone or '' }}">
+        </div>
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" name="date_of_birth" value="{{ profile.date_of_birth if profile and profile.date_of_birth else '' }}">
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <input type="text" name="gender" value="{{ profile.gender if profile and profile.gender else '' }}">
+        </div>
+        <div class="form-group wide">
+            <label>Address</label>
+            <textarea name="address">{{ profile.address if profile and profile.address else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Course</label>
+            <input type="text" name="course" value="{{ profile.course if profile and profile.course else '' }}">
+        </div>
+        <div class="form-group">
+            <label>Skills</label>
+            <input type="text" name="skills" value="{{ profile.skills if profile and profile.skills else '' }}">
+        </div>
+        <div class="form-group">
+            <label>Education</label>
+            <input type="text" name="education" value="{{ profile.education if profile and profile.education else '' }}">
+        </div>
+        <div class="form-group">
+            <label>Account Status</label>
+            <input type="text" name="account_status" value="{{ profile.account_status if profile and profile.account_status else 'Active' }}">
+        </div>
+    </div>
+    <button type="submit" class="primary-button">Save Profile</button>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Trainee Profile{% endblock %}
+
+{% block content %}
+<h1>{{ user.full_name }}</h1>
+
+<div class="profile-card">
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ user.phone or 'Not provided' }}</p>
+    <p><strong>Trainee ID:</strong> {{ user.profile.trainee_id if user.profile else 'N/A' }}</p>
+    <p><strong>Course:</strong> {{ user.profile.course if user.profile else 'N/A' }}</p>
+    <p><strong>Batch:</strong> {{ user.profile.batch.name if user.profile and user.profile.batch else 'N/A' }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.profile.date_of_birth if user.profile and user.profile.date_of_birth else 'N/A' }}</p>
+    <p><strong>Gender:</strong> {{ user.profile.gender if user.profile else 'N/A' }}</p>
+    <p><strong>Address:</strong> {{ user.profile.address if user.profile else 'N/A' }}</p>
+    <p><strong>Joining Date:</strong> {{ user.profile.joining_date if user.profile and user.profile.joining_date else 'N/A' }}</p>
+    <p><strong>Skills:</strong> {{ user.profile.skills if user.profile else 'N/A' }}</p>
+    <p><strong>Education:</strong> {{ user.profile.education if user.profile else 'N/A' }}</p>
+    <p><strong>Account Status:</strong> {{ user.profile.account_status if user.profile else 'N/A' }}</p>
+</div>
+{% endblock %}

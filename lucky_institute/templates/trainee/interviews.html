@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Interview Tracking{% endblock %}
+
+{% block content %}
+<h1>Interview Tracking</h1>
+
+<form method="POST" class="panel-card">
+    <h2>Schedule Interview</h2>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Application</label>
+            <select name="job_application_id" required>
+                <option value="">Select application</option>
+                {% for app in applications %}
+                    <option value="{{ app.id }}">{{ app.company_name }} - {{ app.job_role }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Interview Date</label>
+            <input type="date" name="interview_date" required>
+        </div>
+        <div class="form-group">
+            <label>Time</label>
+            <input type="text" name="interview_time" placeholder="10:30 AM">
+        </div>
+        <div class="form-group">
+            <label>Interview Type</label>
+            <select name="interview_type">
+                <option>Online</option>
+                <option>Offline</option>
+                <option>Phone</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Interview Round</label>
+            <input type="text" name="interview_round" value="Round 1">
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <select name="interview_status">
+                <option>Scheduled</option>
+                <option>Attended</option>
+                <option>Selected</option>
+                <option>Rejected</option>
+                <option>Pending</option>
+                <option>On Hold</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>HR Name</label>
+            <input type="text" name="hr_name">
+        </div>
+        <div class="form-group">
+            <label>HR Phone</label>
+            <input type="text" name="hr_phone">
+        </div>
+        <div class="form-group">
+            <label>HR Email</label>
+            <input type="email" name="hr_email">
+        </div>
+        <div class="form-group wide">
+            <label>Interview Notes</label>
+            <textarea name="notes"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="primary-button">Save Interview</button>
+</form>
+
+<div class="panel-card wide-card">
+    <h2>Interview History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Round</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for interview in interviews %}
+            <tr>
+                <td>{{ interview.company_name }}</td>
+                <td>{{ interview.job_role }}</td>
+                <td>{{ interview.interview_round }}</td>
+                <td>{{ interview.interview_status }}</td>
+                <td>{{ interview.interview_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

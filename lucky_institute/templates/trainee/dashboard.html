@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}My Career Dashboard{% endblock %}
+
+{% block content %}
+<h1>My Career Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span>Total Applications</span>
+        <strong>{{ stats.total_applied }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Interview Calls</span>
+        <strong>{{ stats.interview_calls }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Interviews Completed</span>
+        <strong>{{ stats.interviews_completed }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Selected</span>
+        <strong>{{ stats.selected_companies }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Rejected</span>
+        <strong>{{ stats.rejected_applications }}</strong>
+    </div>
+    <div class="stat-card">
+        <span>Pending</span>
+        <strong>{{ stats.pending_applications }}</strong>
+    </div>
+</div>
+
+<div class="panel-grid">
+    <div class="panel-card wide-card">
+        <h2>Career Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app.company_name }}</td>
+                    <td>{{ app.job_role }}</td>
+                    <td>{{ app.application_status }}</td>
+                    <td>{{ app.application_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-card wide-card">
+        <h2>Interviews</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Round</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interview in interviews %}
+                <tr>
+                    <td>{{ interview.company_name }}</td>
+                    <td>{{ interview.interview_round }}</td>
+                    <td>{{ interview.interview_status }}</td>
+                    <td>{{ interview.interview_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
